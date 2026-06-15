@@ -1,0 +1,17 @@
+data:
+  cats_folder: "C:/Users/Dell/Desktop/machine learning CNN Classifier/cats"
+  dogs_folder: "C:/Users/Dell/Desktop/machine learning CNN Classifier/dogs"
+
+training:
+  epochs: 25
+  batch_size: 16
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  image_size: 64
+  test_size: 0.2
+  random_state: 42
+
+model:
+  save_path: "models/best_model.pth"
+
+  

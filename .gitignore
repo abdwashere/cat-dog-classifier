@@ -1,0 +1,8 @@
+venv/
+data/
+*.pth
+mlruns/
+__pycache__/
+*.pyc
+monitoring/predictions.json
+test/
