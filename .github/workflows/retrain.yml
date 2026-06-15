@@ -1,0 +1,49 @@
+name: Auto Retrain
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # runs every day at midnight
+  workflow_dispatch:       # allows manual trigger too
+
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install torch torchvision pillow numpy pandas \
+                    mlflow scikit-learn huggingface-hub pyyaml
+
+    - name: Download data from HuggingFace Dataset
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        HF_USERNAME: ${{ secrets.HF_USERNAME }}
+      run: python scripts/download_data.py
+
+    - name: Check if retraining needed
+      id: check
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      run: |
+        python scripts/check_retrain.py
+        echo "should_retrain=$(cat /tmp/should_retrain.txt)" >> $GITHUB_OUTPUT
+
+    - name: Retrain model
+      if: steps.check.outputs.should_retrain == 'true'
+      run: python src/train.py
+
+    - name: Push new model to HuggingFace Space
+      if: steps.check.outputs.should_retrain == 'true'
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        HF_USERNAME: ${{ secrets.HF_USERNAME }}
+      run: python scripts/deploy.py 
