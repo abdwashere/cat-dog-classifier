@@ -1,40 +1,52 @@
-A production-grade MLOps project that classifies cats and dogs with 98% accuracy using a fine-tuned ResNet18 model, complete with experiment tracking, REST API serving, continuous training, and automated redeployment.
+# Cat vs Dog Image Classifier
 
+A binary image classification model that distinguishes between cats and dogs, trained using machine learning techniques and deployed on Hugging Face Spaces.
 
-Live Demo: https://huggingface.co/spaces/abdwashere/cat-dog-classifier
+## Live Demo
 
+🚀 [Try it on Hugging Face Spaces](https://huggingface.co/spaces/abdwashere/cat-dog-classifier) <!-- replace with your actual link -->
 
-How to Run it locally:<br>
-  1. Clone the repo:<br>
-      git clone https://github.com/abdwashere/cat-dog-classifier.git <br>
-      cd cat-dog-classifier<br>
-     
-  2. Set up the enviorment: <br>
-      python -m venv venv<br>
-      venv\Scripts\activate      # Windows<br>
-      pip install torch torchvision fastapi uvicorn pillow pyyaml mlflow scikit-learn gradio numpy<br>
-     
-  3. Update params.yaml with your data paths:<br>
-      data:<br>
-          cats_folder: "path/to/cats"<br>
-          dogs_folder: "path/to/dogs"<br>
-  
-  4. Train the model:<br>
-      python src/train.py<br>
+## Features
 
-  5. Start the API:<br>
-      uvicorn api.main:app --reload
+- Binary image classification (cat vs dog)
+- Model trained and fine-tuned on labeled image dataset
+- Deployed as an interactive web app on Hugging Face Spaces
+- Supports image upload for real-time prediction
 
-  6. Test at http://127.0.0.1:8000/docs<br>
-<br>
-<br>
+## Tech Stack
 
-What I Learned
+| Component | Tool |
+|---|---|
+| Framework | TensorFlow / Scikit-learn |
+| Deployment | Hugging Face Spaces |
+| Language | Python |
 
-End-to-end MLOps pipeline from training to production.<br>
+## Model Architecture
+
+- Convolutional Neural Network (CNN) for feature extraction
+- Fine-tuned on cat/dog image dataset
+- Binary output: Cat (0) or Dog (1)
+
+## Getting Started
+
+```bash
+git clone https://github.com/abdwashere/cat-dog-classifier
+cd cat-dog-classifier
+pip install -r requirements.txt
+python predict.py --image your_image.jpg
+```
+
+## Results
+
+98% accuracy using a fine-tuned ResNet18 model <br>
 Transfer learning with ResNet18 (+28% accuracy over custom CNN)<br>
-Model serving with FastAPI<br>
-Experiment tracking with MLflow<br>
-Continuous training with GitHub Actions<br>
-Model monitoring and drift detection<br>
-Deploying ML apps on HuggingFace Spaces<br>
+
+
+<!-- Fill in your actual results -->
+
+## What I Learned
+
+- CNN architecture design and tuning
+- Image preprocessing and augmentation
+- Model deployment workflow with Hugging Face Spaces
+- Trade-offs between model size and accuracy
